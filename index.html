@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,7 +140,7 @@
                 padding: 20px 10px;
             }
         }
-        /* Loading overlay */
+        /* Loading overlay - hidden by default */
         .loading {
             position: fixed;
             top: 0;
@@ -147,7 +148,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
+            display: none; /* Hide loading by default */
             align-items: center;
             justify-content: center;
             z-index: 9999;
@@ -164,9 +165,13 @@
     </div>
 
     <script>
-        // Hide loading immediately (don't wait for images)
+        // Content shows immediately - no loading wait
         document.addEventListener('DOMContentLoaded', function() {
+            // Ensure loading is hidden
             document.getElementById('loading').style.display = 'none';
+            
+            // Show home page content immediately
+            document.getElementById('homePage').style.display = 'flex';
         });
 
     </style>
