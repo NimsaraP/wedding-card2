@@ -24,9 +24,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(248, 248, 248, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(250, 250, 250, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -171,6 +171,62 @@
             animation: slideInUp 1s ease-out 0.5s forwards;
         }
 
+        /* QR Code Clickable Area */
+        .qr-clickable {
+            position: absolute;
+            top: 15%;
+            left: 8%;
+            width: 20%;
+            height: 25%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        .qr-clickable:hover {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .qr-clickable:active {
+            transform: scale(0.98);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .qr-clickable:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* Click Animation */
+        @keyframes clickPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .qr-clickable.clicked {
+            animation: clickPulse 0.3s ease;
+        }
+
         /* Animations */
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
@@ -222,12 +278,26 @@
             .card-front, .card-back {
                 padding: 40px 20px;
             }
+
+            .qr-clickable {
+                top: 14%;
+                left: 6%;
+                width: 22%;
+                height: 26%;
+            }
         }
 
         @media (max-width: 480px) {
             .home-page::before {
                 width: 200px;
                 height: 200px;
+            }
+
+            .qr-clickable {
+                top: 13%;
+                left: 5%;
+                width: 24%;
+                height: 27%;
             }
         }
     </style>
@@ -254,7 +324,12 @@
             <div class="card-front"></div>               
             
             <!-- Card Back -->
-            <div class="card-back"></div>
+            <div class="card-back">
+                <!-- Clickable QR Code Area -->
+                <div class="qr-clickable" onclick="openLocationLink()">
+                    <div class="tooltip">Click to open location</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -286,6 +361,25 @@
                 });
             }, 600);
         });
+
+        // QR Code Click Function
+        function openLocationLink() {
+            // Add click animation
+            const qrElement = document.querySelector('.qr-clickable');
+            qrElement.classList.add('clicked');
+            
+            // Remove animation class after animation completes
+            setTimeout(() => {
+                qrElement.classList.remove('clicked');
+            }, 300);
+
+            // Replace this URL with your actual location link
+            // This could be Google Maps, Apple Maps, or any other location service
+            const locationUrl = "https://maps.google.com/?q=Colombo+Horana+Main+Road";
+            
+            // Open in new tab/window
+            window.open(locationUrl, '_blank');
+        }
 
         // Add smooth scrolling behavior
         document.addEventListener('DOMContentLoaded', function() {
