@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nethmini & Isuru Wedding Invitation</title>
+    <title>Wedding Invitation</title>
     <style>
         * {
             margin: 0;
@@ -15,7 +14,7 @@
         body {
             font-family: 'Georgia', serif;
             overflow-x: hidden;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
 
         /* Home Page */
@@ -32,87 +31,142 @@
             transition: all 0.3s ease;
         }
 
-        /* Simple Image Display with fallback */
-        .center-image {
+        .home-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: url('./images/v10_41.png') center center/contain no-repeat;
-            background-color: #e8e8e8; /* Fallback color if image doesn't load */
-            width: 280px;
-            height: 400px;
-            cursor: pointer;
-            transition: all 0.4s ease;
             animation: float 6s ease-in-out infinite;
+        }
+
+        .envelope-container {
+            position: relative;
+            animation: pulse 1s ease-in-out infinite;
+            display: none; /* Hide the envelope since we're using your images */
+        }
+
+        .envelope {
+            width: 200px;
+            height: 600px;
+            background: linear-gradient(145deg, #8B9467, #9BA670);
+            position: relative;
             border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            border: 2px dashed #ccc; /* Visual indicator if image is missing */
-        }
-
-        .center-image:hover {
-            transform: scale(1.05);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease; /* Hover: 0.6s → 0.3s (2x faster) */
         }
 
+        .envelope:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
 
+        .envelope-flap {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 200px;
+            height: 600px;
+            background: linear-gradient(145deg, #9BA670, #A8B377);
+            clip-path: polygon(0 0, 50% 70%, 100% 0);
+            border-radius: 8px 8px 0 0;
+            transform-origin: top center;
+            animation: flapOpen 1.5s ease-in-out infinite; /* Flap: 3s → 1.5s (2x faster) */
+        }
 
-        /* Enhanced Click Hint */
+        .invitation-peek {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 40px;
+            background: #f8f8f8;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
         .click-hint {
             position: absolute;
-            bottom: 50px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: #2c3e50;
-            font-size: 18px;
+             color: #8B8000;
+            font-size: 16px;
             animation: bounce 2s infinite;
-            opacity: 0.9;
-            background: rgba(255,255,255,0.9);
-            padding: 12px 24px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        /* Simple Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            opacity: 0.8;
         }
 
         /* Main Wedding Page */
         .wedding-page {
             display: none;
             min-height: 100vh;
-            background: url('./images/v10_43.png') center top/contain no-repeat;
             background-color: #f5f5f5;
-            position: relative;
         }
 
         .wedding-card {
-            max-width: 800px;
+            width: 100%;
+            max-width: 600px;
             margin: 0 auto;
             padding: 40px 20px;
-            min-height: 100vh;
             position: relative;
+            box-sizing: border-box; 
+        }
+
+        .card-front {
+            background: url('./images/v10_43.png') center center/cover no-repeat;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            animation: slideInUp 1s ease-out;
+            min-height: 600px;
         }
 
         .card-back {
-            background: url('./images/wedding\ card\ side\ 2.jpg') center center/contain no-repeat;
-            background-color: white;
+            background: url('./images/wedding\ card\ side\ 2.jpg') center center/cover no-repeat;
             border-radius: 20px;
-            min-height: 600px;
+            padding: 60px 40px;
             margin-top: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
             position: relative;
-            opacity: 0;
-            transform: translateY(50px);
+            overflow: hidden;
+            min-height: 600px;
             animation: slideInUp 1s ease-out 0.5s forwards;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes flapOpen {
+            0%, 100% { transform: rotateX(0deg); }
+            50% { transform: rotateX(-15deg); }
         }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-12px); }
-            60% { transform: translateX(-50%) translateY(-6px); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
         }
-
         @keyframes slideInUp {
             from {
                 opacity: 0;
@@ -126,74 +180,60 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .center-image {
-                width: 240px;
-                height: 340px;
-            }
-
-            .click-hint {
-                font-size: 16px;
-                padding: 10px 20px;
+            .envelope {
+                width: 250px;
+                height: 160px;
             }
             
             .wedding-card {
                 padding: 20px 10px;
             }
-        }
-        /* Loading overlay - hidden by default */
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: none; /* Hide loading by default */
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            font-size: 20px;
-            color: #2c3e50;
-            font-weight: 500;
-        }
-
-    <!-- Wedding Page -->
-    <div class="wedding-page" id="weddingPage">
-        <div class="wedding-card">
-            <div class="card-back" id="cardBack"></div>
-        </div>
-    </div>
-
-    <script>
-        // Content shows immediately - no loading wait
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ensure loading is hidden
-            document.getElementById('loading').style.display = 'none';
             
-            // Show home page content immediately
-            document.getElementById('homePage').style.display = 'flex';
-        });
-
+            .card-front, .card-back {
+                padding: 40px 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="loading" id="loading">Loading your invitation...</div>
-
+    
     <!-- Home Page -->
     <div class="home-page" id="homePage">
-        <div class="center-image" id="centerImage"></div>
+        <div class="envelope-container">
+            <div class="envelope">
+                <div class="envelope-flap"></div>
+                <div class="invitation-peek">
+                </div>
+            </div>
+        </div>
         <div class="click-hint">Click to open invitation ✨</div>
     </div>
-        // Click to open invitation
-        document.getElementById('centerImage').addEventListener('click', function() {
-            const homePage = document.getElementById('homePage');
+
+    <!-- Wedding Page -->
+    <div class="wedding-page" id="weddingPage">
+        <div class="wedding-card">
+            <!-- Card Front -->
+            <div class="card-front"></div>               
             
-            // Fade out home page
-            homePage.style.transform = 'scale(1.1)';
-            homePage.style.opacity = '0';
+            <!-- Card Back -->
+            <div class="card-back"></div>
+        </div>
+    </div>
+
+    <script>
+        // Hide loading when page loads
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+
+        document.getElementById('homePage').addEventListener('click', function() {
+            // Hide home page
+            this.style.transform = 'scale(1.1)';
+            this.style.opacity = '0';
             
             setTimeout(() => {
-                homePage.style.display = 'none';
+                this.style.display = 'none';
                 document.getElementById('weddingPage').style.display = 'block';
                 
                 // Smooth scroll to top
@@ -204,13 +244,19 @@
             }, 600);
         });
 
-        // Show second card when scrolling
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const cardBack = document.getElementById('cardBack');
-            
-            if (scrollPosition > windowHeight * 0.5) {
-                cardBack.style.animation = 'slideInUp 1s ease-out forwards';
-            }
+        // Add smooth scrolling behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add parallax effect to background
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                
+                const cards = document.querySelectorAll('.card-front, .card-back');
+                cards.forEach(card => {
+                    card.style.transform = `translateY(${rate * 0.1}px)`;
+                });
+            });
         });
+    </script>
+</body>
+</html>
