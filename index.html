@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nethmini & Isuru Wedding Invitation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: #f5f5f5;
+        }
+
+        /* Home Page */
+        .home-page {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('./images/v3_53.png') center center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Simple Image Display */
+        .center-image {
+            background: url('./images/v10_41.png') center center/contain no-repeat;
+            width: 280px;
+            height: 400px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: float 6s ease-in-out infinite;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .center-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+
+
+        /* Enhanced Click Hint */
+        .click-hint {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #2c3e50;
+            font-size: 18px;
+            animation: bounce 2s infinite;
+            opacity: 0.9;
+            background: rgba(255,255,255,0.9);
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Simple Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Main Wedding Page */
+        .wedding-page {
+            display: none;
+            min-height: 100vh;
+            background: url('./images/v10_43.png') center top/contain no-repeat;
+            background-color: #f5f5f5;
+            position: relative;
+        }
+
+        .wedding-card {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .card-back {
+            background: url('./images/wedding\ card\ side\ 2.jpg') center center/contain no-repeat;
+            background-color: white;
+            border-radius: 20px;
+            min-height: 600px;
+            margin-top: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-12px); }
+            60% { transform: translateX(-50%) translateY(-6px); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .center-image {
+                width: 240px;
+                height: 340px;
+            }
+
+            .click-hint {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            
+            .wedding-card {
+                padding: 20px 10px;
+            }
+        }
+        /* Loading overlay */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-size: 20px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+    <!-- Wedding Page -->
+    <div class="wedding-page" id="weddingPage">
+        <div class="wedding-card">
+            <div class="card-back" id="cardBack"></div>
+        </div>
+    </div>
+
+    <script>
+        // Hide loading when page loads
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">Loading your invitation...</div>
+
+    <!-- Home Page -->
+    <div class="home-page" id="homePage">
+        <div class="center-image" id="centerImage"></div>
+        <div class="click-hint">Click to open invitation ✨</div>
+    </div>
+        // Click to open invitation
+        document.getElementById('centerImage').addEventListener('click', function() {
+            const homePage = document.getElementById('homePage');
+            
+            // Fade out home page
+            homePage.style.transform = 'scale(1.1)';
+            homePage.style.opacity = '0';
+            
+            setTimeout(() => {
+                homePage.style.display = 'none';
+                document.getElementById('weddingPage').style.display = 'block';
+                
+                // Smooth scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 600);
+        });
+
+        // Show second card when scrolling
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const cardBack = document.getElementById('cardBack');
+            
+            if (scrollPosition > windowHeight * 0.5) {
+                cardBack.style.animation = 'slideInUp 1s ease-out forwards';
+            }
+        });
