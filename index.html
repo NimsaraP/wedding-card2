@@ -31,9 +31,10 @@
             transition: all 0.3s ease;
         }
 
-        /* Simple Image Display */
+        /* Simple Image Display with fallback */
         .center-image {
             background: url('./images/v10_41.png') center center/contain no-repeat;
+            background-color: #e8e8e8; /* Fallback color if image doesn't load */
             width: 280px;
             height: 400px;
             cursor: pointer;
@@ -41,6 +42,7 @@
             animation: float 6s ease-in-out infinite;
             border-radius: 10px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 2px dashed #ccc; /* Visual indicator if image is missing */
         }
 
         .center-image:hover {
@@ -162,8 +164,8 @@
     </div>
 
     <script>
-        // Hide loading when page loads
-        window.addEventListener('load', function() {
+        // Hide loading immediately (don't wait for images)
+        document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('loading').style.display = 'none';
         });
 
