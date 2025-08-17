@@ -159,6 +159,18 @@
             min-height: 600px;
         }
 
+        .card-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .card-back {
             background: url('./images/wedding\ card\ side\ 2.jpg') center center/cover no-repeat;
             border-radius: 20px;
@@ -169,6 +181,18 @@
             overflow: hidden;
             min-height: 600px;
             animation: slideInUp 1s ease-out 0.5s forwards;
+        }
+
+        .card-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 1;
         }
 
         /* QR Code Clickable Area */
