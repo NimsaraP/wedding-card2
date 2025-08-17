@@ -61,8 +61,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
+            width: 700px;
+            height: 700px;
             background: url('./images/v10_41.png') center center/contain no-repeat;
             animation: float 6s ease-in-out infinite;
         }
@@ -70,54 +70,62 @@
         .envelope-container {
             position: relative;
             animation: pulse 1s ease-in-out infinite;
-            display: none; /* Hide the envelope since we're using your images */
+            display: none; /* Keep envelope hidden since we're using your images */
         }
 
         .envelope {
-            width: 200px;
-            height: 600px;
+            width: 320px; /* Increased from 200px */
+            height: 200px; /* Increased from 600px - adjusted proportions */
             background: linear-gradient(145deg, #8B9467, #9BA670);
             position: relative;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-radius: 15px; /* Slightly larger border radius */
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3); /* Enhanced shadow */
             transform-style: preserve-3d;
-            transition: all 0.3s ease; /* Hover: 0.6s → 0.3s (2x faster) */
+            transition: all 0.3s ease;
         }
 
         .envelope:hover {
             transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
 
         .envelope-flap {
             position: absolute;
             top: -1px;
             left: 0;
-            width: 200px;
-            height: 600px;
+            width: 320px; /* Match envelope width */
+            height: 100px; /* Adjusted for better proportions */
             background: linear-gradient(145deg, #9BA670, #A8B377);
             clip-path: polygon(0 0, 50% 70%, 100% 0);
-            border-radius: 8px 8px 0 0;
+            border-radius: 12px 12px 0 0;
             transform-origin: top center;
-            animation: flapOpen 1.5s ease-in-out infinite; /* Flap: 3s → 1.5s (2x faster) */
+            animation: flapOpen 1.5s ease-in-out infinite;
         }
 
         .invitation-peek {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 40px;
+            top: 30px; /* Adjusted spacing */
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
             background: #f8f8f8;
-            border-radius: 5px;
+            border-radius: 8px; /* Slightly larger radius */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             transform: translateY(10px);
             transition: all 0.3s ease;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .invitation-peek::after {
+            content: "💌 Wedding Invitation";
+            font-family: 'Georgia', serif;
+            font-style: italic;
         }
 
         .click-hint {
@@ -125,8 +133,8 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-             color: #8B8000;
-            font-size: 16px;
+            color: #8B8000;
+            font-size: 18px; /* Slightly larger text */
             animation: bounce 2s infinite;
             opacity: 0.8;
         }
@@ -192,6 +200,7 @@
             40% { transform: translateX(-50%) translateY(-10px); }
             60% { transform: translateX(-50%) translateY(-5px); }
         }
+        
         @keyframes slideInUp {
             from {
                 opacity: 0;
@@ -206,13 +215,8 @@
         /* Responsive */
         @media (max-width: 768px) {
             .home-page::before {
-                width: 250px;
-                height: 250px;
-            }
-            
-            .envelope {
-                width: 250px;
-                height: 160px;
+                width: 550px;
+                height: 550px;
             }
             
             .wedding-card {
@@ -226,8 +230,8 @@
 
         @media (max-width: 480px) {
             .home-page::before {
-                width: 200px;
-                height: 200px;
+                width: 450px;
+                height: 450px;
             }
         }
     </style>
